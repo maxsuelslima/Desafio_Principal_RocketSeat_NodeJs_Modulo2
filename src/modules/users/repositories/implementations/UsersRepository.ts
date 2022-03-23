@@ -19,8 +19,8 @@ class UsersRepository implements IUsersRepository {
   }
 
   create({ name, email }: ICreateUserDTO): User {
+
     const user=new User(name,email)
-    
     this.users.push(user)
 
     return user
@@ -37,13 +37,18 @@ class UsersRepository implements IUsersRepository {
   }
 
   turnAdmin(receivedUser: User): User {
-    const user=this.users.find(user=>user===user)
+    const user=this.users.find(user=>user===receivedUser)
+    
+    const indexOfObject=this.users.indexOf(user)
+
+    this.users[indexOfObject].admin=true
 
     return user
   }
 
   list(): User[] {
-    return this.users
+    const users=this.users
+    return users
   }
 }
 
